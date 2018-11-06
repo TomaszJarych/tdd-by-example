@@ -1,20 +1,14 @@
 package guru.springframework;
 
-import lombok.AllArgsConstructor;
 
-@AllArgsConstructor
-public class Euro {
-	
-	private int amount;
+public class Euro extends Money {
+
+	public Euro(int amount) {
+		this.amount = amount;
+	}
 
 	Euro times(int multiplier) {
-		return new Euro(amount * multiplier);
-	}
-	
-	@Override
-	public boolean equals(Object obj) {
-		Euro euro = (Euro)obj;
-		return this.amount == euro.amount;
+		return new Euro(this.amount * multiplier);
 	}
 
 }
