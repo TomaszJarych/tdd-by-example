@@ -40,4 +40,28 @@ public class MoneyTest {
 		assertEquals(Money.createDollar(10), reduced);
 		
 	}
+	
+	@Test
+    void testPlusReturnsSum() {
+        Money five = Money.createDollar(5);
+        Expression result = five.plus(five);
+        Sum sum = (Sum) result;
+        assertEquals(five, sum.augmend);
+        assertEquals(five, sum.addmend);
+    }
+	
+	 @Test
+	    void testReduceSum() {
+	        Expression sum = new Sum(Money.createDollar(3), Money.createDollar(4));
+	        Bank bank = new Bank();
+	        Money result = bank.reduce(sum, Money.USD_CURRENCY_CODE);
+	        assertEquals(Money.createDollar(7), result);
+	    }
+
+	    @Test
+	    void testReduceMoney() {
+	        Bank bank = new Bank();
+	        Money result = bank.reduce(Money.createDollar(1), "USD");
+	        assertEquals(Money.createDollar(1), result);
+	    }
 }
