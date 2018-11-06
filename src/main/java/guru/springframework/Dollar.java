@@ -2,11 +2,9 @@ package guru.springframework;
 
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
-import lombok.Getter;
 
 @AllArgsConstructor
-@Getter
-@EqualsAndHashCode
+
 public class Dollar {
 
 	private int amount;
@@ -15,8 +13,10 @@ public class Dollar {
 		return new Dollar(amount * multiplier);
 	}
 
+	@Override
+	public boolean equals(Object  obj) {
+		Dollar dollar = (Dollar) obj;
+		return this.amount == dollar.amount;
+	}
 
-	
-	
-	
 }
