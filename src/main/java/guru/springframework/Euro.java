@@ -1,15 +1,15 @@
 package guru.springframework;
 
-
 public class Euro extends Money {
 
-	public Euro(int amount) {
-		this.amount = amount;
-	}
+
 	
+	public Euro(int amount, String currency) {
+		super(amount, currency);
+	}
 
 	public Money times(int multiplier) {
-		return new Euro(this.amount * multiplier);
+		return Money.createEuro(amount * multiplier);
 	}
 
 }

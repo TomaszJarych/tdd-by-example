@@ -42,7 +42,7 @@ public class MoneyTest {
 	
 	@Test
 	void testCurrency() {
-		assertEquals("USD", Money.createDollar(1).currency);
-		assertEquals("EUR", Money.createEuro(1).currency);
+		assertEquals("USD", Money.createDollar(1).getCurrency());
+		assertEquals("EUR", Money.createEuro(1).getCurrency());
 	}
 }
