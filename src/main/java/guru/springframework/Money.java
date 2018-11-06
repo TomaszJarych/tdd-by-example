@@ -1,8 +1,5 @@
 package guru.springframework;
 
-import lombok.ToString;
-
-@ToString
 public class Money {
 
 	private final static String USD_CURRENCY_CODE = "USD";
@@ -11,12 +8,11 @@ public class Money {
 	protected int amount;
 	protected String currency;
 
-
 	public Money(int amount, String currency) {
 		this.amount = amount;
 		this.currency = currency;
 	}
-	
+
 	protected String getCurrency() {
 		return this.currency;
 	}
@@ -28,11 +24,11 @@ public class Money {
 	}
 
 	public static Money createDollar(int amount) {
-		return new Dollar(amount, USD_CURRENCY_CODE);
+		return new Money(amount, USD_CURRENCY_CODE);
 	}
 
 	public static Money createEuro(int amount) {
-		return new Euro(amount, EUR_CURRENCY_CODE);
+		return new Money(amount, EUR_CURRENCY_CODE);
 	}
 
 	public Money times(int multiplier) {
