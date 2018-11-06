@@ -1,5 +1,8 @@
 package guru.springframework;
 
+import lombok.ToString;
+
+@ToString
 public class Money implements Expression {
 
 	public final static String USD_CURRENCY_CODE = "USD";
@@ -36,8 +39,8 @@ public class Money implements Expression {
 	}
 
 	@Override
-	public Money reduce(String toCurrency) {
-		return this;
+	public Money reduce(Bank bank,String toCurrency) {
+		return new Money(amount/bank.rate(this.currency, toCurrency), toCurrency);
 	}
 
 	public Expression plus(Money addend) {

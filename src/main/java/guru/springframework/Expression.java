@@ -4,6 +4,6 @@ public interface Expression {
 	
 //	Expression plus(Money amount);
 	
-	Money reduce(String toCurrency);
+	Money reduce(Bank bank, String toCurrency);
 
 }
