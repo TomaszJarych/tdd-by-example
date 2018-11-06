@@ -87,4 +87,26 @@ public class MoneyTest {
 		Expression result = bank.reduce(fiveBucks.plus(tenFrancs), Money.USD_CURRENCY_CODE);
 		assertEquals(Money.createDollar(10), result);
 	}
+	
+	@Test
+	void testSumPlusMoney(){
+		Expression fiveDollars = Money.createDollar(5);
+		Expression tenEuros = Money.createEuro(10);
+		Bank bank = new Bank();
+		bank.addRate(Money.EUR_CURRENCY_CODE, Money.USD_CURRENCY_CODE, 2);
+		Expression sum = new Sum(fiveDollars, tenEuros).plus(fiveDollars);
+		Money result = bank.reduce(sum, Money.USD_CURRENCY_CODE);
+		assertEquals(Money.createDollar(15), result);
+	}
+	@Test
+	void testSumMultiplyMoney(){
+		Expression fiveDollars = Money.createDollar(5);
+		Expression tenEuros = Money.createEuro(10);
+		Bank bank = new Bank();
+		bank.addRate(Money.EUR_CURRENCY_CODE, Money.USD_CURRENCY_CODE, 2);
+		Expression sum = new Sum(fiveDollars, tenEuros).times(2);
+		Money result = bank.reduce(sum, Money.USD_CURRENCY_CODE);
+		assertEquals(Money.createDollar(20), result);
+		
+	}
 }
