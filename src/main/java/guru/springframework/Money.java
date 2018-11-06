@@ -1,8 +1,9 @@
 package guru.springframework;
 
-import lombok.AllArgsConstructor;
+import lombok.ToString;
 
-public abstract class Money {
+@ToString
+public class Money {
 
 	private final static String USD_CURRENCY_CODE = "USD";
 	private final static String EUR_CURRENCY_CODE = "EUR";
@@ -10,8 +11,6 @@ public abstract class Money {
 	protected int amount;
 	protected String currency;
 
-
-	public abstract Money times(int multiplier);
 
 	public Money(int amount, String currency) {
 		this.amount = amount;
@@ -25,7 +24,7 @@ public abstract class Money {
 	@Override
 	public boolean equals(Object obj) {
 		Money money = (Money) obj;
-		return this.amount == money.amount && this.getClass() == obj.getClass();
+		return this.amount == money.amount && this.currency == money.currency;
 	}
 
 	public static Money createDollar(int amount) {
@@ -34,5 +33,9 @@ public abstract class Money {
 
 	public static Money createEuro(int amount) {
 		return new Euro(amount, EUR_CURRENCY_CODE);
+	}
+
+	public Money times(int multiplier) {
+		return new Money(amount * multiplier, this.currency);
 	}
 }
