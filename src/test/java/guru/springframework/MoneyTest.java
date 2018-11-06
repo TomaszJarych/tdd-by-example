@@ -32,17 +32,17 @@ public class MoneyTest {
 
 	@Test
 	void testSimpleAddition() {
-		Money five = Money.createDollar(5);
+		Expression five = Money.createDollar(5);
 		Expression sum = five.plus(five);
 		Bank bank = new Bank();
-		Money reduced = bank.reduce(sum, "USD");
+		Expression reduced = bank.reduce(sum, "USD");
 		assertEquals(Money.createDollar(10), reduced);
 
 	}
 
 	@Test
 	void testPlusReturnsSum() {
-		Money five = Money.createDollar(5);
+		Expression five = Money.createDollar(5);
 		Expression result = five.plus(five);
 		Sum sum = (Sum) result;
 		assertEquals(five, sum.augmend);
@@ -53,14 +53,14 @@ public class MoneyTest {
 	void testReduceSum() {
 		Expression sum = new Sum(Money.createDollar(3), Money.createDollar(4));
 		Bank bank = new Bank();
-		Money result = bank.reduce(sum, Money.USD_CURRENCY_CODE);
+		Expression result = bank.reduce(sum, Money.USD_CURRENCY_CODE);
 		assertEquals(Money.createDollar(7), result);
 	}
 
 	@Test
 	void testReduceMoney() {
 		Bank bank = new Bank();
-		Money result = bank.reduce(Money.createDollar(1), Money.USD_CURRENCY_CODE);
+		Expression result = bank.reduce(Money.createDollar(1), Money.USD_CURRENCY_CODE);
 		assertEquals(Money.createDollar(1), result);
 	}
 
@@ -68,7 +68,7 @@ public class MoneyTest {
 	void testReduceMoneyDifferentCurrency() {
 		Bank bank = new Bank();
 		bank.addRate(Money.EUR_CURRENCY_CODE, Money.USD_CURRENCY_CODE, 2);
-		Money result = bank.reduce(Money.createEuro(2), Money.USD_CURRENCY_CODE);
+		Expression result = bank.reduce(Money.createEuro(2), Money.USD_CURRENCY_CODE);
 		assertEquals(Money.createDollar(1), result);
 	}
 
@@ -76,5 +76,15 @@ public class MoneyTest {
 	void testIdentityRate() {
 		assertEquals(1, new Bank().rate(Money.USD_CURRENCY_CODE, Money.USD_CURRENCY_CODE));
 		assertEquals(1, new Bank().rate(Money.EUR_CURRENCY_CODE, Money.EUR_CURRENCY_CODE));
+	}
+
+	@Test
+	public void testMixedAddition() {
+		Expression fiveBucks = Money.createDollar(5);
+		Expression tenFrancs = Money.createEuro(10);
+		Bank bank = new Bank();
+		bank.addRate(Money.EUR_CURRENCY_CODE, Money.USD_CURRENCY_CODE, 2);
+		Expression result = bank.reduce(fiveBucks.plus(tenFrancs), Money.USD_CURRENCY_CODE);
+		assertEquals(Money.createDollar(10), result);
 	}
 }
