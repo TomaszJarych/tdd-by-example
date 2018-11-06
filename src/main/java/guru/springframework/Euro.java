@@ -6,8 +6,9 @@ public class Euro extends Money {
 	public Euro(int amount) {
 		this.amount = amount;
 	}
+	
 
-	Euro times(int multiplier) {
+	public Money times(int multiplier) {
 		return new Euro(this.amount * multiplier);
 	}
 

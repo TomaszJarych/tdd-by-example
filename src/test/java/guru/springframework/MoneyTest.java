@@ -8,39 +8,41 @@ public class MoneyTest {
 
 	@Test
 	void testMultiplicationDollar() {
-		Dollar five = new Dollar(5);
-		Dollar product = five.times(2);
-		assertEquals(new Dollar(10), product);
-		product = five.times(3);
-		assertEquals(new Dollar(15), product);
+		Money five = Money.createDollar(5);
+		assertEquals(Money.createDollar(10), five.times(2));
+		assertEquals(Money.createDollar(15), five.times(3));
 	}
 
 	@Test
 	void testEqualityDollar() {
-		assertEquals(new Dollar(5), new Dollar(5));
+		assertEquals(Money.createDollar(5), Money.createDollar(5));
 
-		assertNotEquals(new Dollar(5), new Dollar(8));
+		assertNotEquals(Money.createDollar(5), Money.createDollar(8));
 
-		assertNotEquals(new Euro(5), new Dollar(5));
+		assertNotEquals(Money.createEuro(5), Money.createDollar(5));
 
 	}
 
 	@Test
 	void testMultiplicationEuro() {
-		Euro five = new Euro(5);
-		Euro product = five.times(2);
-		assertEquals(new Euro(10), product);
-		product = five.times(3);
-		assertEquals(new Euro(15), product);
+		Money five = Money.createEuro(5);
+		assertEquals(Money.createEuro(10), five.times(2));
+		assertEquals(Money.createEuro(15), five.times(3));
 	}
 
 	@Test
 	void testEqualityEuro() {
-		assertEquals(new Euro(5), new Euro(5));
+		assertEquals(Money.createEuro(5), Money.createEuro(5));
 
-		assertNotEquals(new Euro(5), new Euro(8));
+		assertNotEquals(Money.createEuro(5), Money.createEuro(8));
 
-		assertNotEquals(new Dollar(5), new Euro(5));
+		assertNotEquals(Money.createDollar(5), Money.createEuro(5));
 
+	}
+	
+	@Test
+	void testCurrency() {
+		assertEquals("USD", Money.createDollar(1).currency);
+		assertEquals("EUR", Money.createEuro(1).currency);
 	}
 }
