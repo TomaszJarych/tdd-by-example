@@ -1,6 +1,6 @@
 package guru.springframework;
 
-public class Money {
+public class Money implements Expression{
 
 	private final static String USD_CURRENCY_CODE = "USD";
 	private final static String EUR_CURRENCY_CODE = "EUR";
@@ -34,4 +34,11 @@ public class Money {
 	public Money times(int multiplier) {
 		return new Money(amount * multiplier, this.currency);
 	}
+
+	@Override
+	public Expression plus(Money added) {
+		return new Money(amount + added.amount, this.currency);
+	}
+	
+	
 }
